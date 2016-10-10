@@ -1,26 +1,16 @@
-import { Component } from '@angular/core';
+///<reference path="../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
+import { Component, OnInit } from '@angular/core';
 
 import {Hero} from "./hero";
-
-const HEROES: Hero[] = [
-    { id: 11, name: 'Mr. Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
-];
+import {HeroService} from "./hero.service"
 
 
 @Component({
+    providers: [HeroService],
     selector: 'my-app',
     template: `
         <h1>{{title}}</h1>
-        <h2>My Heroes</h2>
+        <h2>我的英雄</h2>
         <ul class="heroes">
             <li *ngFor="let hero of heroes" 
                 (click)="onselect(hero)"
@@ -82,11 +72,17 @@ const HEROES: Hero[] = [
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+    constructor(private heroService : HeroService) {
+
+    }
+    ngOnInit(): void {
+        this.heroService.getHeroesSlowly().then(heros => this.heroes = heros)
+    }
     onselect(hero: Hero): void {
         this.selectedHero = hero;
     }
     title = '英雄展览';
-    heroes = HEROES;
+    heroes: Hero[];
     selectedHero: Hero;
 }
