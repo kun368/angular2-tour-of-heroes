@@ -1,8 +1,8 @@
-///<reference path="../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
+///<reference path="../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
 import { Component, OnInit } from '@angular/core';
 
-import {Hero} from "./hero";
-import {HeroService} from "./hero.service"
+import {Hero} from "../model/hero";
+import {HeroService} from "../service/hero"
 
 
 @Component({
